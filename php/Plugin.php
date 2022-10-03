@@ -1,6 +1,6 @@
 <?php
 
-namespace threeObjectViewer;
+namespace fourObjectViewer;
 
 class Plugin
 {

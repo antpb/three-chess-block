@@ -1,5 +1,5 @@
 {
-    "name": "@antpb/three-object-viewer",
+    "name": "@antpb/four-object-viewer",
     "private": true,
     "version": "0.6.3",
     "license": "GPL-2.0-or-later",
@@ -45,8 +45,15 @@
         "convert-hex": "^0.1.0",
         "events": "^3.3.0",
         "get-browser-rtc": "^1.1.0",
+        "glslify-import-loader": "^0.1.2",
+        "glslify-loader": "^2.0.0",
+        "r3f-perf": "4.9.1",
+        "raw-loader": "^4.0.2",
         "three": "0.144.0",
+        "three-icosa": "^0.4.0",
         "three-omi": "^0.1.5",
-        "tiny-simple-peer": "^10.1.1"
+        "tiny-simple-peer": "^10.1.1",
+        "url-loader": "^4.1.1",
+        "webpack-glsl-loader": "^1.0.1"
     }
 }

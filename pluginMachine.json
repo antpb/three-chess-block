@@ -1,35 +1,22 @@
 {
-    "slug": "three-object-viewer",
+    "slug": "four-object-viewer",
     "pluginId": 166,
     "buildId": 172,
     "entryPoints": {
         "adminPages": [
-            "three-object-viewer-settings"
+            "four-object-viewer-settings"
         ],
         "blocks": [
-            "three-object-block",
-            "environment",
-            "model-block",
-            "sky-block",
-            "three-image-block",
-            "three-video-block",
-            "three-audio-block",
-            "three-portal-block"
+            "four-portal-block"
         ]
     },
     "buildIncludes": [
-        "three-object-viewer.php",
+        "four-object-viewer.php",
         "readme.txt",
         "php",
         "vendor",
         "build",
-        "blocks/three-object-block/init.php",
-        "blocks/environment/init.php",
-        "blocks/model-block/init.php",
-        "blocks/sky-block/init.php",
-        "blocks/three-image-block/init.php",
-        "blocks/three-video-block/init.php",
-        "blocks/three-portal-block/init.php",
-        "admin/three-object-viewer-settings/init.php"
+        "blocks/four-portal-block/init.php",
+        "admin/four-object-viewer-settings/init.php"
     ]
 }

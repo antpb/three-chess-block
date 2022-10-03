@@ -10,7 +10,7 @@ Download the release zip and install on your WordPress.
 ## Local Development
 
 - Git clone:
-    - `git clone git@github.com:antpb/three-object-viewer.git`
+    - `git clone git@github.com:antpb/four-object-viewer.git`
 - Install javascript dependencies
     - `yarn`
 - Install php dependencies
@@ -35,7 +35,7 @@ Download the release zip and install on your WordPress.
 
 PHP classes should be located in the "php" directory and follow the [PSR-4 standard](https://www.php-fig.org/psr/psr-4/).
 
-The root namespace is `threeObjectViewer`.
+The root namespace is `fourObjectViewer`.
 
 
 

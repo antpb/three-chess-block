@@ -1,0 +1,68 @@
+{
+    "name": "four-object-viewer/four-portal-block",
+    "title": "Four Portal Block",
+    "description": "A custom plugin",
+    "attributes": {
+        "scaleX": {
+            "type": "int",
+            "default":1
+        },
+        "scaleY": {
+            "type": "int",
+            "default":1
+        },
+        "scaleZ": {
+            "type": "int",
+            "default":1
+        },
+        "positionX": {
+            "type": "int",
+            "default":0
+        },
+        "positionY": {
+            "type": "int",
+            "default":0
+        },
+        "positionZ": {
+            "type": "int",
+            "default":0
+        },
+        "rotationX": {
+            "type": "int",
+            "default":0
+        },
+        "rotationY": {
+            "type": "int",
+            "default":0
+        },
+        "rotationZ": {
+            "type": "int",
+            "default":0
+        },
+        "threeObjectUrl": {
+            "type": "string",
+            "default": null
+        },
+        "destinationUrl": {
+            "type": "string",
+            "default": null
+        },
+        "animations": {
+            "type": "string",
+            "default": ""
+        },
+        "collidable": {
+            "type": "boolean",
+            "default": false
+        }
+    },
+    "category": "3D",
+    "apiVersion": 2,
+    "supports": {
+        "html": false,
+        "multiple": true
+    },
+    "editorScript": "file:../../build/block-four-portal-block.js",
+	"editorStyle": "file:../../build/block-four-portal-block.css",
+	"style": "file:../../build/block-four-portal-block.css"
+}

@@ -23,10 +23,10 @@ if ( entryPoints.hasOwnProperty( 'adminPages' ) ) {
 }
 
 entry[ `./assets/js/blocks.frontend` ] =
-	'./blocks/three-object-block/frontend.js';
+	'./blocks/four-portal-block/frontend.js';
 
-entry[ `./assets/js/blocks.frontend-versepress` ] =
-'./blocks/environment/frontend.js';
+// entry[ `./assets/js/blocks.frontend-versepress` ] =
+// './blocks/environment/frontend.js';
 
 module.exports = {
 	mode: isProduction ? 'production' : 'development',
@@ -38,6 +38,22 @@ module.exports = {
 			{
 				test: /\.css$/,
 				use: [ 'style-loader', 'css-loader' ],
+			},
+			// {
+            //     test: /\.glsl$/,
+            //     use: 'webpack-glsl',
+			// },
+			// {
+			// 	test: /\.(vert|frag)$/i,
+			// 	use: 'raw-loader',			  
+			// },
+			{
+				test: /\.(glsl|frag|vert)$/,
+				use: ['glslify-import-loader', 'raw-loader', 'glslify-loader']
+			},
+			{
+				test: /\.(png|svg|jpg|gif)$/,
+				use: ['file-loader', 'url-loader']			
 			},
 			{
 				test: /\.vrm$/,

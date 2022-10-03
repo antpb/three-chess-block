@@ -1,18 +1,18 @@
 {
-    "name": "antpb/three-object-viewer",
-    "description": "threeObjectViewer",
+    "name": "antpb/four-object-viewer",
+    "description": "fourObjectViewer",
     "require": {
         "php": "^7.2|^8.0"
     },
     "type": "wordpress-plugin",
     "autoload": {
         "psr-4": {
-            "threeObjectViewer\\": "./php"
+            "fourObjectViewer\\": "./php"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "threeObjectViewer\\Tests\\": "./tests"
+            "fourObjectViewer\\Tests\\": "./tests"
         }
     },
     "require-dev": {
