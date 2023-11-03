@@ -13,20 +13,7 @@ if ( entryPoints.hasOwnProperty( 'blocks' ) ) {
 	} );
 }
 
-if ( entryPoints.hasOwnProperty( 'adminPages' ) ) {
-	entryPoints.adminPages.forEach( ( entryPoint ) => {
-		entry[ `admin-page-${ entryPoint }` ] = path.resolve(
-			process.cwd(),
-			`admin/${ entryPoint }/index.js`
-		);
-	} );
-}
-
-entry[ `./assets/js/blocks.frontend` ] =
-	'./blocks/four-portal-block/frontend.js';
-
-// entry[ `./assets/js/blocks.frontend-versepress` ] =
-// './blocks/environment/frontend.js';
+entry[`./assets/js/blocks.three-custom-block`] = "./blocks/three-custom-block/three-custom-block-front.js";
 
 module.exports = {
 	mode: isProduction ? 'production' : 'development',
@@ -35,6 +22,9 @@ module.exports = {
 		...defaultConfig.module,
 		rules: [
 			...defaultConfig.module.rules,
+			{ 
+				test: /\.js$/, loader: "babel-loader"
+			},		  
 			{
 				test: /\.css$/,
 				use: [ 'style-loader', 'css-loader' ],

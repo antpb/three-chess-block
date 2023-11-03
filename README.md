@@ -1,61 +1,15 @@
-# Three Object Viewer
+# Three Custom Block
+This custom block example inserts three.js logic into the editor as well as the frontend of a 3OV powered site. If you want to manipulate the frontend rend of this example plugin see blocks/three-custom-block-front.js
+
+After making a change to the example files, be sure to run a `yarn build` before trying the logic. After running a build, you can zip up this entire directory and install it on a WordPress. Be sure to not include the `vendor` or `node_modules` folders in those zips. This is a crude example in current state but will certainly get you on the path to extending 3OV with your own custom Three.js logic.
+
 
 [![Built With Plugin Machine](https://img.shields.io/badge/Built%20With-Plugin%20Machine-lightgrey)](https://pluginmachine.com)
-
-## Installation
-
-Download the release zip and install on your WordPress. 
-
-
-## Local Development
-
-- Git clone:
-    - `git clone git@github.com:antpb/four-object-viewer.git`
-- Install javascript dependencies
-    - `yarn`
-- Install php dependencies
-    - `composer install`
 
 ## Working With JavaScript
 
 - Build JS/CSS
     - `yarn build`
-- Start JS/CSS for development
-    - `yarn start`
-- Test changed files
-    - `yarn test --watch`
-- Test all files once
-    - `yarn test`
-    - `yarn test --ci`
-
-
-## Working With PHP
-
-### Autoloader
-
-PHP classes should be located in the "php" directory and follow the [PSR-4 standard](https://www.php-fig.org/psr/psr-4/).
-
-The root namespace is `fourObjectViewer`.
-
-
-
-### Tests
-- Run unit tests
-    - `composer test:unit`
-- Run WordPress tests
-    - `composer test:wordpress`
-    - See local development instructions for how to run with Docker.
-- Run unit tests and WordPress tests
-    - `composer test`
-
-### Linter
-
-[PHPCS](https://github.com/squizlabs/PHP_CodeSniffer) is installed for linting and [automatic code fixing](https://github.com/squizlabs/PHP_CodeSniffer/wiki/Fixing-Errors-Automatically).
-
-- Run linter and autofix
-    - `composer fixes`
-- Run linter to identify issues.
-    - `compose sniffs`
 
 ## Local Development Environment
 

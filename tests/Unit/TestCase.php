@@ -1,7 +1,7 @@
 <?php
 
 
-namespace fourObjectViewer\Tests\Unit;
+namespace threeCustomBlock\Tests\Unit;
 
 use Yoast\PHPUnitPolyfills\Polyfills\AssertIsType;
 

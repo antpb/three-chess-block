@@ -1,22 +1,18 @@
 {
-    "slug": "four-object-viewer",
+    "slug": "three-custom-block",
     "pluginId": 166,
     "buildId": 172,
     "entryPoints": {
-        "adminPages": [
-            "four-object-viewer-settings"
-        ],
         "blocks": [
-            "four-portal-block"
+            "three-custom-block"
         ]
     },
     "buildIncludes": [
-        "four-object-viewer.php",
+        "three-custom-block.php",
         "readme.txt",
         "php",
         "vendor",
         "build",
-        "blocks/four-portal-block/init.php",
-        "admin/four-object-viewer-settings/init.php"
+        "blocks/three-custom-block/init.php"
     ]
 }

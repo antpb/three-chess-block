@@ -1,5 +1,5 @@
 <?php
-namespace fourObjectViewer\Tests\Integration;
+namespace threeCustomBlock\Tests\Integration;
 
 use PHPUnit\Framework\TestCase;
 

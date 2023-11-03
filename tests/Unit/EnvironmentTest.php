@@ -1,9 +1,9 @@
 <?php
 
 
-namespace fourObjectViewer\Tests\Unit;
+namespace threeCustomBlock\Tests\Unit;
 
-use fourObjectViewer\Plugin;
+use threeCustomBlock\Plugin;
 use Brain\Monkey\Functions;
 
 /**

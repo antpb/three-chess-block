@@ -1,18 +1,18 @@
 {
     "name": "antpb/four-object-viewer",
-    "description": "fourObjectViewer",
+    "description": "threeCustomBlock",
     "require": {
         "php": "^7.2|^8.0"
     },
     "type": "wordpress-plugin",
     "autoload": {
         "psr-4": {
-            "fourObjectViewer\\": "./php"
+            "threeCustomBlock\\": "./php"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "fourObjectViewer\\Tests\\": "./tests"
+            "threeCustomBlock\\Tests\\": "./tests"
         }
     },
     "require-dev": {
