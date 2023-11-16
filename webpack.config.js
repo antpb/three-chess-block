@@ -13,7 +13,7 @@ if ( entryPoints.hasOwnProperty( 'blocks' ) ) {
 	} );
 }
 
-entry[`./assets/js/blocks.three-custom-block`] = "./blocks/three-custom-block/three-custom-block-front.js";
+entry[`./assets/js/blocks.three-chess-block`] = "./blocks/three-chess-block/three-chess-block-front.js";
 
 module.exports = {
 	mode: isProduction ? 'production' : 'development',

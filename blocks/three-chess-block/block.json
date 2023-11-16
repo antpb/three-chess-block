@@ -1,7 +1,7 @@
 {
-    "name": "three-object-viewer/three-custom-block",
-    "title": "Custom Block",
-    "description": "A mirror for your environment",
+    "name": "three-object-viewer/three-chess-block",
+    "title": "Three Chess Block",
+    "description": "A chess game for your environment",
     "attributes": {
         "scaleX": {
             "type": "int",
@@ -55,7 +55,7 @@
         "html": false,
         "multiple": true
     },
-    "editorScript": "file:../../build/block-three-custom-block.js",
-	"editorStyle": "file:../../build/block-three-custom-block.css",
-	"style": "file:../../build/block-three-custom-block.css"
+    "editorScript": "file:../../build/block-three-chess-block.js",
+	"editorStyle": "file:../../build/block-three-chess-block.css",
+	"style": "file:../../build/block-three-chess-block.css"
 }

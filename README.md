@@ -1,5 +1,5 @@
 # Three Custom Block
-This custom block example inserts three.js logic into the editor as well as the frontend of a 3OV powered site. If you want to manipulate the frontend rend of this example plugin see blocks/three-custom-block-front.js
+This custom block example inserts three.js logic into the editor as well as the frontend of a 3OV powered site. If you want to manipulate the frontend rend of this example plugin see blocks/three-chess-block-front.js
 
 After making a change to the example files, be sure to run a `yarn build` before trying the logic. After running a build, you can zip up this entire directory and install it on a WordPress. Be sure to not include the `vendor` or `node_modules` folders in those zips. This is a crude example in current state but will certainly get you on the path to extending 3OV with your own custom Three.js logic.
 

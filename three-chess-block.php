@@ -1,6 +1,6 @@
 <?php
 /**
-* Plugin Name: Three Custom Block
+* Plugin Name: Three Chess Block
 * Plugin URI: https://3ov.xyz/
 * Description: An example plugin extending 3OV.
 * Version: 0.1
@@ -10,13 +10,13 @@
 * Author URI:        https://3ov.xyz
 * License:           GPL v2 or later
 * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
-* Text Domain:       three-custom-block
+* Text Domain:       three-chess-block
 * Domain Path:       /languages
 */
 
 // Include three-object-block
 // Include portal
-include_once dirname( __FILE__ ) . '/blocks/three-custom-block/init.php';
+include_once dirname( __FILE__ ) . '/blocks/three-chess-block/init.php';
 
 /**
 * Include the autoloader

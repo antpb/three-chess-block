@@ -1,5 +1,5 @@
 {
-    "name": "@antpb/three-custom-block",
+    "name": "@antpb/three-chess-block",
     "private": true,
     "version": "0.6.3",
     "license": "GPL-2.0-or-later",
@@ -46,6 +46,7 @@
         "array-buffer-to-hex": "^1.0.0",
         "babel-loader": "^8.2.5",
         "base64-arraybuffer": "^1.0.2",
+        "chess.js": "^1.0.0-beta.6",
         "convert-hex": "^0.1.0",
         "events": "^3.3.0",
         "get-browser-rtc": "^1.1.0",
@@ -53,6 +54,7 @@
         "glslify-loader": "^2.0.0",
         "r3f-perf": "4.9.1",
         "raw-loader": "^4.0.2",
+        "react-chessboard": "^4.3.1",
         "three": "0.144.0",
         "three-icosa": "^0.4.0",
         "three-omi": "^0.1.5",

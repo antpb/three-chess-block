@@ -1,18 +1,18 @@
 {
-    "slug": "three-custom-block",
+    "slug": "three-chess-block",
     "pluginId": 166,
     "buildId": 172,
     "entryPoints": {
         "blocks": [
-            "three-custom-block"
+            "three-chess-block"
         ]
     },
     "buildIncludes": [
-        "three-custom-block.php",
+        "three-chess-block.php",
         "readme.txt",
         "php",
         "vendor",
         "build",
-        "blocks/three-custom-block/init.php"
+        "blocks/three-chess-block/init.php"
     ]
 }

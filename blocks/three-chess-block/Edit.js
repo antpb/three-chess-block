@@ -18,7 +18,7 @@ import {
 	TextControl
 } from "@wordpress/components";
 import { more } from "@wordpress/icons";
-import { ThreeMirror } from "./three-custom-block-editor";
+import { ThreeMirror } from "./three-chess-block-editor";
 
 export default function Edit({ attributes, setAttributes, isSelected, clientId }) {
 	window.addEventListener('registerEditorPluginReady', function() {
@@ -136,28 +136,10 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId }
 					className="three-object-environment-edit-container three-object-viewer-edit-panel"
 				>
 					<PanelBody
-						title="Mirror Settings"
+						title="Three Chess Block Settings"
 						icon={more}
 						initialOpen={true}
 					>
-						<PanelRow className="wide-slider">
-							<RangeControl
-								label={ __( "Height", "three-object-viewer" ) }
-								value={attributes.height}
-								min={0}
-								max={200}
-								onChange={onChangeHeight}
-							/>
-						</PanelRow>
-						<PanelRow className="wide-slider">
-							<RangeControl
-								label={ __( "Width", "three-object-viewer" ) }
-								value={attributes.width}
-								min={0}
-								max={200}
-								onChange={onChangeWidth}
-							/>
-						</PanelRow>
 						<PanelRow>
 							<TextControl
 								className="position-inputs"
@@ -209,34 +191,6 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId }
 								onChange={(value) => onChangeRotationZ(value)}
 							/>
 						</PanelRow>
-						<PanelRow>
-							<legend className="blocks-base-control__label">
-								{__("Scale", "three-object-viewer")}
-							</legend>
-						</PanelRow>
-						<PanelRow>
-							<TextControl
-								className="position-inputs"
-								label="X"
-								// help="position x"
-								value={attributes.scaleX}
-								onChange={(value) => onChangeScaleX(value)}
-							/>
-							<TextControl
-								className="position-inputs"
-								label="Y"
-								// help="position y"
-								value={attributes.scaleY}
-								onChange={(value) => onChangeScaleY(value)}
-							/>
-							<TextControl
-								className="position-inputs"
-								label="Z"
-								// help="position z"
-								value={attributes.scaleZ}
-								onChange={(value) => onChangeScaleZ(value)}
-							/>
-						</PanelRow>
 					</PanelBody>
 				</Panel>
 			</InspectorControls>
@@ -255,9 +209,8 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId }
 									</g>
 								</svg>
 								<p>
-									<b>Custom Mirror Block</b>
+									<b>Three Chess Block</b>
 								</p>
-								{/* <p>URL: {attributes.threeObjectUrl}</p> */}
 							</div>
 						</div>
 				</>
@@ -276,9 +229,8 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId }
 								</g>
 							</svg>
 							<p>
-								<b>Custom Mirror Block</b>
+								<b>Three Chess Block</b>
 							</p>
-							{/* <p>URL: {attributes.threeObjectUrl}</p> */}
 						</div>
 					</div>
 				</>
