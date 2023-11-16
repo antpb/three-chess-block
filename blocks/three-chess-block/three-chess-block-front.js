@@ -37,6 +37,30 @@ function ChessPiece({ piece }) {
 }
 
 function ThreeCustomBlockRender() {
+	const [chessInstance, setChessBlocks] = useState([]);
+
+	useEffect(() => {
+		let blocksArray = [];
+		window.threeApp.forEach((item) => {
+			if (item.className === "three-object-three-app-three-chess-block") {
+				const block = {
+					positionX: item.querySelector("p.three-chess-block-positionX").innerText,
+					positionY: item.querySelector("p.three-chess-block-positionY").innerText,
+					positionZ: item.querySelector("p.three-chess-block-positionZ").innerText,
+					rotationX: item.querySelector("p.three-chess-block-rotationX").innerText,
+					rotationY: item.querySelector("p.three-chess-block-rotationY").innerText,
+					rotationZ: item.querySelector("p.three-chess-block-rotationZ").innerText
+				};
+				blocksArray.push(block);
+			}
+		});
+
+		setChessBlocks(blocksArray);
+
+		console.log("chessInstance", chessInstance);
+
+	}, []);
+
     const [capturedPieces, setCapturedPieces] = useState([]);
     const [blocks, setBlocks] = useState([]);
     const [pieces, setPieces] = useState([]);
@@ -126,7 +150,6 @@ function ThreeCustomBlockRender() {
 			  method: 'POST',
 			  headers: {
 				'Content-Type': 'application/json',
-				'Authorization': 'Bearer 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',
 			  },
 			  body: JSON.stringify({
 				currentMove: moveHistory[0].lan, // send the latest move
@@ -417,9 +440,17 @@ function ThreeCustomBlockRender() {
 
     return (
         <>
-            <ChessBoard blocks={blocks} />
-            {pieces.map((piece, index) => <ChessPiece key={index} piece={piece} />)}
-            {capturedPieces.map((piece, index) => <ChessPiece key={index} piece={piece} />)}
+			{chessInstance.map((chessInstance, index) => (
+				<group
+					key={index}
+					position={[Number(chessInstance.positionX), Number(chessInstance.positionY), Number(chessInstance.positionZ)]}
+					rotation={[Number(chessInstance.rotationX), Number(chessInstance.rotationY), Number(chessInstance.rotationZ)]}
+				>
+					<ChessBoard blocks={blocks} />
+					{pieces.map((piece, index) => <ChessPiece key={index} piece={piece} />)}
+					{capturedPieces.map((piece, index) => <ChessPiece key={index} piece={piece} />)}
+				</group>
+			))}
         </>
     );
 }

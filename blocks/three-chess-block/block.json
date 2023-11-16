@@ -53,7 +53,7 @@
     "apiVersion": 2,
     "supports": {
         "html": false,
-        "multiple": true
+        "multiple": false
     },
     "editorScript": "file:../../build/block-three-chess-block.js",
 	"editorStyle": "file:../../build/block-three-chess-block.css",

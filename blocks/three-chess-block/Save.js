@@ -5,34 +5,25 @@ export default function save({ attributes }) {
 	return (
 		<div {...useBlockProps.save()}>
 			<>
-			<div id="three-custom-block-container"></div>
-				<div className="three-object-three-app-three-custom-block">
-					<p className="three-custom-block-scaleX">{attributes.scaleX}</p>
-					<p className="three-custom-block-scaleY">{attributes.scaleY}</p>
-					<p className="three-custom-block-scaleZ">{attributes.scaleZ}</p>
-					<p className="three-custom-block-positionX">
+			<div id="three-chess-block-container"></div>
+				<div className="three-object-three-app-three-chess-block">
+					<p className="three-chess-block-positionX">
 						{attributes.positionX}
 					</p>
-					<p className="three-custom-block-positionY">
+					<p className="three-chess-block-positionY">
 						{attributes.positionY}
 					</p>
-					<p className="three-custom-block-positionZ">
+					<p className="three-chess-block-positionZ">
 						{attributes.positionZ}
 					</p>
-					<p className="three-custom-block-rotationX">
+					<p className="three-chess-block-rotationX">
 						{attributes.rotationX}
 					</p>
-					<p className="three-custom-block-rotationY">
+					<p className="three-chess-block-rotationY">
 						{attributes.rotationY}
 					</p>
-					<p className="three-custom-block-rotationZ">
+					<p className="three-chess-block-rotationZ">
 						{attributes.rotationZ}
-					</p>
-					<p className="three-custom-block-height">
-						{attributes.height}
-					</p>
-					<p className="three-custom-block-width">
-						{attributes.width}
 					</p>
 				</div>
 			</>

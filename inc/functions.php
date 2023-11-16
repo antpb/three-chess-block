@@ -73,18 +73,16 @@ add_action( 'rest_api_init', function () {
   
   // Handle the POST request to the custom endpoint.
   function handle_chess_move_request( WP_REST_Request $request ) {
-	$authorization = $request->get_header('Authorization');
-	
-	if (empty($authorization)) {
-	  return new WP_REST_Response('Unauthorized', 401);
-	}
+	$openai_api_key = get_option('openai_api_key');
+    if (empty($openai_api_key)) {
+        return new WP_REST_Response('OpenAI API key is not set in the plugin settings.', 401);
+    }
   
 	$data = json_decode($request->get_body(), true);
 	$currentMove = $data['currentMove'] ?? '';
 	$gameHistory = $data['movesHistory'] ?? [];
 	$availableMoves = $data['availableMoves'] ?? [];
 	
-	$token = explode(" ", $authorization)[1] ?? '';
 	$messages = [
 		[
 		  'role' => 'system',
@@ -106,7 +104,7 @@ add_action( 'rest_api_init', function () {
   
 	$response = wp_remote_post( 'https://api.openai.com/v1/chat/completions', [
 	  'headers' => [
-		'Authorization' => 'Bearer ' . $token,
+		'Authorization' => 'Bearer ' . $openai_api_key,
 		'Content-Type' => 'application/json'
 	  ],
 	  'body' => json_encode($postData),
@@ -136,3 +134,35 @@ add_action( 'rest_api_init', function () {
 	return new WP_REST_Response($responseBody, 200);
   }
   
+
+  // Add menu item for settings page
+add_action('admin_menu', 'register_my_custom_menu_page');
+function register_my_custom_menu_page(){
+    add_options_page('OpenAI Settings', 'OpenAI Settings', 'manage_options', 'openai-settings', 'openai_settings_page');
+}
+
+// Display the settings page content
+function openai_settings_page(){
+    ?>
+    <div class="wrap">
+        <h1>OpenAI Settings</h1>
+        <form method="post" action="options.php">
+            <?php settings_fields('openai-settings-group'); ?>
+            <?php do_settings_sections('openai-settings-group'); ?>
+            <table class="form-table">
+                <tr valign="top">
+                    <th scope="row">OpenAI API Key</th>
+                    <td><input type="text" name="openai_api_key" value="<?php echo esc_attr(get_option('openai_api_key')); ?>" /></td>
+                </tr>
+            </table>
+            <?php submit_button(); ?>
+        </form>
+    </div>
+    <?php
+}
+
+// Register settings
+add_action('admin_init', 'register_my_custom_settings');
+function register_my_custom_settings() {
+    register_setting('openai-settings-group', 'openai_api_key');
+}
