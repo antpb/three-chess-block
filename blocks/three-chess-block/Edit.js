@@ -18,23 +18,18 @@ import {
 	TextControl
 } from "@wordpress/components";
 import { more } from "@wordpress/icons";
-import { ThreeMirror } from "./three-chess-block-editor";
+import { ThreeChessBlock } from "./three-chess-block-editor";
 
 export default function Edit({ attributes, setAttributes, isSelected, clientId }) {
 	window.addEventListener('registerEditorPluginReady', function() {
 		window.registerEditorPlugin(
-			<ThreeMirror
-				scaleX={attributes.scaleX}
-				scaleY={attributes.scaleY}
-				scaleZ={attributes.scaleZ}
+			<ThreeChessBlock
 				positionX={attributes.positionX}
 				positionY={attributes.positionY}
 				positionZ={attributes.positionZ}
 				rotationX={attributes.rotationX}
 				rotationY={attributes.rotationY}
 				rotationZ={attributes.rotationZ}
-				height={attributes.height}
-				width={attributes.width}
 				transformMode={"translate"}
 				pluginObjectId={clientId}
 			/>
@@ -79,23 +74,13 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId }
 		setAttributes({ rotationZ });
 	};
 
-	const onChangeScaleX = (scaleX) => {
-		setAttributes({ scaleX });
+	const onChangeWhiteColor = (color) => {
+		setAttributes({ colorWhite: color });
 	};
-	const onChangeScaleY = (scaleY) => {
-		setAttributes({ scaleY });
-	};
-	const onChangeScaleZ = (scaleZ) => {
-		setAttributes({ scaleZ });
+	const onChangeBlackColor = (color) => {
+		setAttributes({ colorBlack: color });
 	};
 
-	const onChangeWidth = (width) => {
-		setAttributes({ width });
-	};
-
-	const onChangeHeight = (height) => {
-		setAttributes({ height });
-	};
 
 	const { mediaUpload } = wp.editor;
 
@@ -189,6 +174,30 @@ export default function Edit({ attributes, setAttributes, isSelected, clientId }
 								// help="position z"
 								value={attributes.rotationZ}
 								onChange={(value) => onChangeRotationZ(value)}
+							/>
+						</PanelRow>
+						<PanelRow>
+							<legend className="blocks-base-control__label">
+								{__("White Squares Color", "three-object-viewer")}
+							</legend>
+						</PanelRow>
+						<PanelRow>
+							<ColorPalette
+								value={attributes.colorWhite}
+								label={__( "White Squares Color", "three-object-viewer" )}
+								onChange={onChangeWhiteColor}
+							/>
+						</PanelRow>
+						<PanelRow>
+							<legend className="blocks-base-control__label">
+								{__("White Squares Color", "three-object-viewer")}
+							</legend>
+						</PanelRow>
+						<PanelRow>
+							<ColorPalette
+								value={attributes.colorBlack}
+								label={__( "Black Squares Color", "three-object-viewer" )}
+								onChange={onChangeBlackColor}
 							/>
 						</PanelRow>
 					</PanelBody>

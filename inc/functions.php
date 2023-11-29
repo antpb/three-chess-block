@@ -37,25 +37,35 @@ function threecustomblock_enqueue_threeobjectloaderinit() {
     );
 }
 
-// enqueue javascript on the post frontend. file in the same directory ./three-mirror-block-front.js
+// Localize data for the frontend.
 add_action( 'enqueue_block_assets', function () {
     wp_enqueue_script(
         'three-chess-block',
         plugins_url( '../build/assets/js/blocks.frontend.js', __FILE__ ),
         array( 'wp-blocks', 'wp-element', 'wp-editor' )
     );
-	// localize the path of the build folder
-	wp_localize_script(
-		'three-chess-block',
-		'threeCustomBlock',
-		array(
-			'pluginDirPath' => plugins_url( '', __FILE__ ),
-		)
-	);
+
+    // Localize the path of the build folder
+    $localize_data = array(
+        'pluginDirPath' => plugins_url( '', __FILE__ ),
+    );
+
+    // Only create and pass the nonce to logged-in users
+    if ( is_user_logged_in() ) {
+        $nonce = wp_create_nonce( 'wp_rest' );
+        $localize_data['nonce'] = $nonce; // Add the nonce to the localized data
+    }
+
+    wp_localize_script(
+        'three-chess-block',
+        'threeCustomBlock',
+        $localize_data
+    );
 });
 
 add_filter( 'three-object-environment-inner-allowed-blocks', __NAMESPACE__ . '\custom_plugin_allow_inner', 10, 4);
 
+// Environment inner blocks
 function custom_plugin_allow_inner( $allowed_blocks ) {
     $new_blocks[] = 'three-object-viewer/three-chess-block';
     $allowed_blocks = array_merge($allowed_blocks, $new_blocks );
@@ -67,11 +77,17 @@ add_action( 'rest_api_init', function () {
 	register_rest_route( 'myplugin/v1', '/chess-move', array(
 	  'methods' => 'POST',
 	  'callback' => 'handle_chess_move_request',
-	  'permission_callback' => '__return_true', // This allows any authenticated user to access the endpoint. Adjust as necessary for security.
+	  'permission_callback' => function ( WP_REST_Request $request ) {
+		// Check for the nonce in the request header.
+		$nonce = $request->get_header('X-WP-Nonce');
+
+		// Verify the nonce.
+		return wp_verify_nonce($nonce, 'wp_rest');
+	}
 	) );
-  } );
+} );
   
-  // Handle the POST request to the custom endpoint.
+  // Handle the POST request to the endpoint.
   function handle_chess_move_request( WP_REST_Request $request ) {
 	$openai_api_key = get_option('openai_api_key');
     if (empty($openai_api_key)) {
@@ -82,11 +98,17 @@ add_action( 'rest_api_init', function () {
 	$currentMove = $data['currentMove'] ?? '';
 	$gameHistory = $data['movesHistory'] ?? [];
 	$availableMoves = $data['availableMoves'] ?? [];
+	if (json_encode($availableMoves)) {
+		$availableMovesMessage = json_encode($availableMoves);
+	} else {
+		$availableMovesMessage = "AI loses No more moves. Checkmate!";
+	}
+	
 	
 	$messages = [
 		[
 		  'role' => 'system',
-		  'content' => "We are playing a game of chess in the metaverse. You are playing as Black. Respond only with your data in raw json string format including moveTo and gameStatus data objects where gameStatus is your current thoughts on the match. Your message is broadcasted back to me so be playful but don't give away all of your plans. Do feel free to coach me and comment on my moves. The current game state is as follows: " . json_encode($gameHistory) . ". Your only available moves are: " . json_encode($availableMoves) . ". RESPOND ONLY IN JSON with moveTo and gameStatus DO NOT USE CODE BLOCKS IN YOUR RESPONSES."
+		  'content' => "We are playing a game of chess in the metaverse. You are playing as Black. Respond only with your data in raw json string format including moveTo and gameStatus data objects where gameStatus is your current thoughts on the match. Your message is broadcasted back to me so be playful but don't give away all of your plans. Do feel free to coach me and comment on my moves. The current game state is as follows: " . json_encode($gameHistory) . ". My last move was: " . $currentMove . " Your only available moves are: " . $availableMovesMessage . ". RESPOND ONLY IN JSON with moveTo and gameStatus DO NOT USE CODE BLOCKS IN YOUR RESPONSES."
 		],
 		[
 		  'role' => 'user',
@@ -94,7 +116,6 @@ add_action( 'rest_api_init', function () {
 		]
 	  ];
 
-	// Here you'd put together the data you want to send to the OpenAI API.
 	$postData = [
 	  'model' => "gpt-4-vision-preview",
 	  'messages' => $messages,
@@ -109,6 +130,7 @@ add_action( 'rest_api_init', function () {
 	  ],
 	  'body' => json_encode($postData),
 	  'data_format' => 'body',
+	  'timeout' => 30
 	]);
   
 	if (is_wp_error($response)) {
@@ -152,7 +174,7 @@ function openai_settings_page(){
             <table class="form-table">
                 <tr valign="top">
                     <th scope="row">OpenAI API Key</th>
-                    <td><input type="text" name="openai_api_key" value="<?php echo esc_attr(get_option('openai_api_key')); ?>" /></td>
+                    <td><input type="password" name="openai_api_key" value="<?php echo esc_attr(get_option('openai_api_key')); ?>" /></td>
                 </tr>
             </table>
             <?php submit_button(); ?>

@@ -3,7 +3,7 @@ import { PlaneGeometry, Color, MeshBasicMaterial, TextureLoader } from "three";
 import { Chess } from 'chess.js'
 import { Chessboard } from 'react-chessboard';
 
-function ChessBoard({ blocks }) {
+function ChessBoard({ blocks, colorWhite, colorBlack }) {
     return (
         <>
             {blocks.map((block, index) => (
@@ -14,7 +14,7 @@ function ChessBoard({ blocks }) {
                 >
                     <mesh>
                         <planeGeometry args={[Number(block.height), Number(block.width)]} />
-                        <meshBasicMaterial color={new Color(block.color)} side={2} />
+                        <meshBasicMaterial color={ block.color === 0xFFFFFF ? new Color(colorWhite) : new Color(colorBlack) } side={2} />
                     </mesh>
                 </group>
             ))}
@@ -49,7 +49,9 @@ function ThreeCustomBlockRender() {
 					positionZ: item.querySelector("p.three-chess-block-positionZ").innerText,
 					rotationX: item.querySelector("p.three-chess-block-rotationX").innerText,
 					rotationY: item.querySelector("p.three-chess-block-rotationY").innerText,
-					rotationZ: item.querySelector("p.three-chess-block-rotationZ").innerText
+					rotationZ: item.querySelector("p.three-chess-block-rotationZ").innerText,
+					colorWhite: item.querySelector("p.three-chess-block-colorWhite").innerText,
+					colorBlack: item.querySelector("p.three-chess-block-colorBlack").innerText
 				};
 				blocksArray.push(block);
 			}
@@ -143,49 +145,52 @@ function ThreeCustomBlockRender() {
 		// convert possibleMoves to string
 		var stringMoves = possibleMoves.toString();
 		console.log("avail", stringMoves);
+		console.log("last move", moveHistory[0]);
+		if( moveHistory[0].color === "w" ) {
 
-		
-		try {
-			const response = await fetch('/wp-json/myplugin/v1/chess-move', {
-			  method: 'POST',
-			  headers: {
-				'Content-Type': 'application/json',
-			  },
-			  body: JSON.stringify({
-				currentMove: moveHistory[0].lan, // send the latest move
-				movesHistory: moveHistory[0].after, // send the entire game history
-				availableMoves: stringMoves, // avail moves
-			  }),
-			});
-		
-			if (!response.ok) {
-			  throw new Error(`HTTP error! status: ${response.status}`);
-			}
-		
-			const data = await response.json();
-		
-			// Check if the necessary properties are present
-			if (!data || typeof data !== 'object' || !data.wittyComment || !data.suggestedMove) {
-			  throw new Error('The response data is not in the expected format or is missing.');
-			}
-		
-			console.log("DATA", data);
-			const { wittyComment, suggestedMove, gameStatus } = data;
-			console.log("suggestd move", suggestedMove);
-			const suggestedMoveObject = JSON.parse(suggestedMove);
-			const moveFrom = suggestedMoveObject.moveFrom;
-			const moveTo = suggestedMoveObject.moveTo;
-			setCurrentMessage(suggestedMoveObject.gameStatus);
-
-			const moveResult = game.move(moveTo);
-			if (moveResult) {
-				setGame(new Chess(game.fen()));
-				setFen(game.fen());
-			}
+			try {
+				const response = await fetch('/wp-json/myplugin/v1/chess-move', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json',
+					'X-WP-Nonce': threeCustomBlock.nonce,
+				},
+				body: JSON.stringify({
+					currentMove: moveHistory[0].san, // send the latest move
+					movesHistory: moveHistory[0].after, // send the entire game history
+					availableMoves: stringMoves, // avail moves
+				}),
+				});
 			
-		  } catch (error) {
-			console.error('Failed to get a move from the AI:', error);
-		  }
+				if (!response.ok) {
+				throw new Error(`HTTP error! status: ${response.status}`);
+				}
+			
+				const data = await response.json();
+			
+				// Check if the necessary properties are present
+				if (!data || typeof data !== 'object' || !data.wittyComment || !data.suggestedMove) {
+				throw new Error('The response data is not in the expected format or is missing.');
+				}
+			
+				console.log("DATA", data);
+				const { wittyComment, suggestedMove, gameStatus } = data;
+				console.log("suggestd move", suggestedMove);
+				const suggestedMoveObject = JSON.parse(suggestedMove);
+				const moveFrom = suggestedMoveObject.moveFrom;
+				const moveTo = suggestedMoveObject.moveTo;
+				setCurrentMessage(suggestedMoveObject.gameStatus);
+
+				const moveResult = game.move(moveTo);
+				if (moveResult) {
+					setGame(new Chess(game.fen()));
+					setFen(game.fen());
+				}
+				
+			} catch (error) {
+				console.error('Failed to get a move from the AI:', error);
+			}
+		}
 	}
 
     // Monitor changes to window.chessGame
@@ -446,7 +451,7 @@ function ThreeCustomBlockRender() {
 					position={[Number(chessInstance.positionX), Number(chessInstance.positionY), Number(chessInstance.positionZ)]}
 					rotation={[Number(chessInstance.rotationX), Number(chessInstance.rotationY), Number(chessInstance.rotationZ)]}
 				>
-					<ChessBoard blocks={blocks} />
+					<ChessBoard blocks={blocks} colorWhite={chessInstance.colorWhite} colorBlack={chessInstance.colorBlack} />
 					{pieces.map((piece, index) => <ChessPiece key={index} piece={piece} />)}
 					{capturedPieces.map((piece, index) => <ChessPiece key={index} piece={piece} />)}
 				</group>

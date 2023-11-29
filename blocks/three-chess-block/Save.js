@@ -25,6 +25,12 @@ export default function save({ attributes }) {
 					<p className="three-chess-block-rotationZ">
 						{attributes.rotationZ}
 					</p>
+					<p className="three-chess-block-colorWhite">
+						{attributes.colorWhite}
+					</p>
+					<p className="three-chess-block-colorBlack">
+						{attributes.colorBlack}
+					</p>
 				</div>
 			</>
 		</div>

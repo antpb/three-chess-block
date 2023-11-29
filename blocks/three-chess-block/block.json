@@ -3,18 +3,6 @@
     "title": "Three Chess Block",
     "description": "A chess game for your environment",
     "attributes": {
-        "scaleX": {
-            "type": "int",
-            "default":1
-        },
-        "scaleY": {
-            "type": "int",
-            "default":1
-        },
-        "scaleZ": {
-            "type": "int",
-            "default":1
-        },
         "positionX": {
             "type": "int",
             "default":0
@@ -39,14 +27,14 @@
             "type": "int",
             "default":0
         },
-        "height": {
-            "type": "int",
-            "default":10
-        },
-        "width": {
-            "type": "int",
-            "default":10
-        }
+		"colorWhite": {
+			"type": "string",
+			"default":"#ffffff"
+		},
+		"colorBlack": {
+			"type": "string",
+			"default":"#000000"
+		}
     },
     "category": "design",
     "parent":  [ "three-object-viewer/environment" ],

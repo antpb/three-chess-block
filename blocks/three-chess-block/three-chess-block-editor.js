@@ -13,7 +13,7 @@ import {
   OutlineEffect
 } from "three";
 
-function ChessBoard({ blocks }) {
+function ChessBoard({ blocks, colorWhite, colorBlack }) {
     return (
         <>
             {blocks.map((block, index) => (
@@ -24,7 +24,7 @@ function ChessBoard({ blocks }) {
                 >
                     <mesh>
                         <planeGeometry args={[Number(block.height), Number(block.width)]} />
-                        <meshBasicMaterial color={new Color(block.color)} side={2} />
+                        <meshBasicMaterial color={ block.color === 0xFFFFFF ? new Color(colorWhite) : new Color(colorBlack) } side={2} />
                     </mesh>
                 </group>
             ))}
@@ -32,7 +32,7 @@ function ChessBoard({ blocks }) {
     );
 }
 
-export function ThreeMirror(threeMirror) {
+export function ThreeChessBlock(threeChessBlock) {
 	const [blocks, setBlocks] = useState([]);
 	const [pieces, setPieces] = useState([]);
 	useEffect(() => {
@@ -68,9 +68,9 @@ export function ThreeMirror(threeMirror) {
 
 	const mirrorObj = useRef();
 	const [isSelected, setIsSelected] = useState();
-	const mirrorBlockAttributes = wp.data
+	const chessBlockAttributes = wp.data
 		.select("core/block-editor")
-		.getBlockAttributes(threeMirror.pluginObjectId);
+		.getBlockAttributes(threeChessBlock.pluginObjectId);
 	const TransformController = ({ condition, wrap, children }) =>
 		condition ? wrap(children) : children;
 
@@ -84,11 +84,11 @@ export function ThreeMirror(threeMirror) {
 		}
 	);
 
-	return ( mirrorBlockAttributes && (
+	return ( chessBlockAttributes && (
 					<group
 						ref={mirrorObj}
 					>
-        				<ChessBoard blocks={blocks} />
+        				<ChessBoard blocks={blocks} colorWhite={chessBlockAttributes.colorWhite} colorBlack={chessBlockAttributes.colorBlack} />
 					</group>
 				)
 	);
